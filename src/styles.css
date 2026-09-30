@@ -1,0 +1,208 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Sugarloom Cakes design system.
+ * Palette: muted rose, soft blush, warm cream, muted gold, dark cocoa-ink.
+ * Headings: Cormorant Garamond (serif). Body: Jost (sans).
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-cream: var(--cream);
+  --color-rose: var(--rose);
+  --color-blush: var(--blush);
+  --color-gold: var(--gold);
+  --color-ink: var(--ink);
+  --color-rose-tint: var(--rose-tint);
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Jost", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  --radius: 0.25rem;
+  /* Brand palette */
+  --cream: oklch(0.983 0.011 63.4);        /* #FFF8F2 */
+  --rose: oklch(0.51 0.076 5.1);           /* #8B5360 */
+  --blush: oklch(0.78 0.057 11.5);         /* #D9A9AE */
+  --gold: oklch(0.738 0.087 78.7);         /* #C8A46A */
+  --ink: oklch(0.299 0.017 360);           /* #352A2D */
+  --rose-tint: oklch(0.955 0.018 15);      /* pale blush wash for section backgrounds */
+
+  /* Semantic tokens */
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: oklch(0.995 0.006 63.4);
+  --card-foreground: var(--ink);
+  --popover: oklch(0.995 0.006 63.4);
+  --popover-foreground: var(--ink);
+  --primary: var(--rose);
+  --primary-foreground: var(--cream);
+  --secondary: var(--rose-tint);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.945 0.014 50);
+  --muted-foreground: oklch(0.5 0.03 20);
+  --accent: var(--blush);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.9 0.02 40);
+  --input: oklch(0.9 0.02 40);
+  --ring: var(--rose);
+}
+
+.dark {
+  --background: oklch(0.23 0.02 360);
+  --foreground: oklch(0.95 0.012 63.4);
+  --card: oklch(0.27 0.02 360);
+  --card-foreground: oklch(0.95 0.012 63.4);
+  --popover: oklch(0.27 0.02 360);
+  --popover-foreground: oklch(0.95 0.012 63.4);
+  --primary: var(--blush);
+  --primary-foreground: oklch(0.23 0.02 360);
+  --secondary: oklch(0.32 0.025 360);
+  --secondary-foreground: oklch(0.95 0.012 63.4);
+  --muted: oklch(0.32 0.02 360);
+  --muted-foreground: oklch(0.72 0.03 40);
+  --accent: oklch(0.32 0.025 360);
+  --accent-foreground: oklch(0.95 0.012 63.4);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: var(--blush);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+
+  ::selection {
+    background-color: var(--color-blush);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  /* Subtle scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.9s ease,
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+    padding: 0.95rem 2.1rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: color-mix(in oklab, var(--color-primary) 88%, black);
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px -14px color-mix(in oklab, var(--color-primary) 55%, transparent);
+  }
+
+  .btn-outline-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in oklab, var(--color-cream) 55%, transparent);
+    color: var(--color-cream);
+    padding: 0.95rem 2.1rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .btn-outline-light:hover {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+  }
+}
